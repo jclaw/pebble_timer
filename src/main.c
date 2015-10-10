@@ -1,9 +1,15 @@
 #include <pebble.h>
-//#include "windows/pin_window.h"
+#include "windows/pin_window.h"
 
   
 static Window *s_main_window;
 static TextLayer *s_output_layer;
+
+
+static void pin_complete_callback(PIN pin, void *context) {
+  APP_LOG(APP_LOG_LEVEL_INFO, "Pin was %d %d %d", pin.digits[0], pin.digits[1], pin.digits[2]);
+  pin_window_pop((PinWindow*)context, true);
+}
 
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -12,6 +18,11 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(s_output_layer, "Select pressed!");
+  
+  PinWindow *pin_window = pin_window_create((PinWindowCallbacks) {
+    .pin_complete = pin_complete_callback
+  });
+  pin_window_push(pin_window, true);
 }
 
 static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -24,6 +35,7 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
+
 
 static void main_window_load(Window *window) {
   
