@@ -1,0 +1,19 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "jclaw3456@gmail.com",
+    "longName": "Timer",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Timer",
+    "uuid": "332f00ef-5590-45d6-9ee8-410f8640ed64",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
